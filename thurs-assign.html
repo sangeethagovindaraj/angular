@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="angular.min.js">
+        </script>
+    </head>
+<body >
+    <div ng-app="myApp" 
+                ng-init="list=[
+            { name:'Computer Architecture', price:65 }, 
+            { name:'Advanced Composite Materials', price:45 }, 
+            { name:'Stategies Unplugged', price:43 }, 
+            { name:'Teaching Science', price:50 }, 
+            { name:'Challenging Times', price:22 }]"
+                    ng-controller="myController">
+ <h3>Books & Prices</h3>
+ <ul ng-repeat="books in list">
+                <li>{{ books.name + ' - ' + (books.price | currency) }}</li>
+            </ul>
+       <input type="text" ng-model="name" placeholder="Enter the Book" /> -
+            <input type="text" ng-model="price" placeholder="Enter a Price" />
+            <p><button ng-click="add()">Add the Book</button></p>
+        </div>
+   </body>
+<script>
+    var myApp = angular.module('myApp', []);
+
+    myApp.controller('myController', ['$scope', function ($book) {
+            $book.add = function () 
+            {
+                if (angular.isDefined($book.name) && $book.name != '' && $book.price != '') 
+                {
+                                      $book.list.push({ name: $book.name, price: $book.price });
+                                      $book.name = '';
+                    $book.price = '';
+                }
+            }
+        }]
+    );
+</script>
+</html>
